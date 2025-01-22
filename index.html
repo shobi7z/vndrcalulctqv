@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحويل العملة</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #ffd700;
+        }
+        input {
+            width: 90%;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        input:focus {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #00ff99;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.5s ease-in-out;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>VNDR حاسبة</h1>
+        <input type="number" id="kwdInput" placeholder="أدخل المبلغ بـ KWD" oninput="convert()">
+        <div class="result" id="result" style="display: none;">0 IQD</div>
+    </div>
+
+    <script>
+        function roundToQuarter(value) {
+            // تقريب القيمة إلى أقرب ربع (مثل 1250, 1500, 1750,...).
+            return Math.round(value / 250) * 250;
+        }
+
+        function convert() {
+            const kwd = parseFloat(document.getElementById("kwdInput").value);
+
+            // إذا الإدخال غير صالح، قم بإخفاء النتيجة
+            if (isNaN(kwd) || kwd <= 0) {
+                document.getElementById("result").style.display = "none";
+                return;
+            }
+
+            // تحويل الدينار الكويتي إلى الدينار العراقي
+            let iqd = kwd * 5000;
+
+            // تقريب الناتج إلى أقرب قيمة (ربع)
+            iqd = roundToQuarter(iqd);
+
+            // عرض النتيجة
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerText = `${iqd.toLocaleString()} IQD`;
+            resultDiv.style.display = "block";
+        }
+    </script>
+</body>
+</html>
