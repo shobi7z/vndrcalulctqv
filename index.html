@@ -75,7 +75,7 @@
 <body>
     <div class="container">
         <h1>VNDR حاسبة</h1>
-        <input type="number" id="kwdInput" placeholder="أدخل المبلغ بـ KWD" oninput="convert()">
+        <input type="number" id="sarInput" placeholder="أدخل المبلغ بـ SAR" oninput="convert()">
         <div class="result" id="result" style="display: none;">0 IQD</div>
     </div>
 
@@ -86,16 +86,16 @@
         }
 
         function convert() {
-            const kwd = parseFloat(document.getElementById("kwdInput").value);
+            const sar = parseFloat(document.getElementById("sarInput").value);
 
             // إذا الإدخال غير صالح، قم بإخفاء النتيجة
-            if (isNaN(kwd) || kwd <= 0) {
+            if (isNaN(sar) || sar <= 0) {
                 document.getElementById("result").style.display = "none";
                 return;
             }
 
-            // تحويل الدينار الكويتي إلى الدينار العراقي
-            let iqd = kwd * 5000;
+            // تحويل الريال السعودي إلى الدينار العراقي
+            let iqd = sar * 390;
 
             // تقريب الناتج إلى أقرب قيمة (ربع)
             iqd = roundToQuarter(iqd);
